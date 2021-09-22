@@ -9,21 +9,23 @@ const Login = () => {
       <div className="container">
         <form className="my-4 mx-auto" style={{ maxWidth: "500px" }}>
           <div className="form-group">
-            <label htmlFor="exampleInputEmail1">Email address</label>
+            <label htmlFor="email">Email address</label>
             <input
+              name="email"
               type="email"
               className="form-control"
-              id="exampleInputEmail1"
+              id="email"
               aria-describedby="emailHelp"
               placeholder="Enter email"
             />
           </div>
           <div className="form-group">
-            <label htmlFor="exampleInputPassword1">Password</label>
+            <label htmlFor="password">Password</label>
             <input
+              name="password"
               type="password"
               className="form-control"
-              id="exampleInputPassword1"
+              id="password"
               placeholder="Password"
             />
           </div>
