@@ -1,7 +1,8 @@
-import connectDB from "../../../utils/connectDB";
 import Users from "../../../models/UserModel";
-import valid from "../../../utils/valid";
+
 import bcrypt from "bcrypt";
+import connectDB from "../../../Utils/connectDB";
+import valid from "../../../Utils/valid";
 
 connectDB();
 
@@ -32,7 +33,6 @@ const register = async (req, res) => {
       password: passwordHash,
       cpassword,
     });
-
     await newUser.save();
     res.json({ msg: "Register Success!" });
   } catch (err) {

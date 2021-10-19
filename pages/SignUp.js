@@ -1,19 +1,30 @@
 import Head from "next/head";
 import Link from "next/link";
-import { useState } from "react";
-import valid from "./Utils/valid";
+import { useState, useContext } from "react";
+import { postData } from "../Utils/fetchData";
+import { DataContext } from "../store/GlobalState";
+
+import valid from "../Utils/valid";
 const SignUp = () => {
   const initialState = { name: "", email: "", password: "", cpassword: "" };
   const [userData, setUserData] = useState(initialState);
   const { name, email, password, cpassword } = userData;
+  const { state, dispatch } = useContext(DataContext);
   const handleChangeInput = (e) => {
     const { name, value } = e.target;
     setUserData({ ...userData, [name]: value });
   };
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const errMsg = valid(name, email, password, cpassword);
-    console.log(errMsg);
+    if (errMsg) return dispatch({ type: "NOTIFY", payload: { error: errMsg } });
+    dispatch({ type: "NOTIFY", payload: { loading: true } });
+
+    const res = await postData("auth/register", userData);
+    console.log(res);
+    if (res.err)
+      return dispatch({ type: "NOTIFY", payload: { error: res.err } });
+    return dispatch({ type: "NOTIFY", payload: { success: res.msg } });
   };
   return (
     <div>
@@ -75,7 +86,7 @@ const SignUp = () => {
             />
           </div>
           <button type="submit" className="btn btn-success">
-            Login
+            Sign Up
           </button>
           <p>
             Don't have an account?{" "}

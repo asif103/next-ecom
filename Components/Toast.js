@@ -1,19 +1,24 @@
-const Toast = () => {
+const Toast = ({ msg, handleShow, bgColor }) => {
   return (
     <div
-      className="toast align-items-center text-white bg-primary border-0"
+      className={`position-fixed toast align-items-center text-white bg-${bgColor} border-0 show`}
       role="alert"
       aria-live="assertive"
-      aria-atomic="true"
+      data-autohide
+      style={{ right: 10, top: 100 }}
     >
-      <div className="d-flex">
-        <div className="toast-body">Hello, world! This is a toast message.</div>
-        <button
-          type="button"
-          className="btn-close btn-close-white me-2 m-auto"
-          data-bs-dismiss="toast"
-          aria-label="Close"
-        ></button>
+      <div>
+        <div className="toast-header">
+          <strong className="mr-auto">{msg.title}</strong>
+          <button
+            type="button"
+            className="btn-close btn-close-white me-2 m-auto bg-info"
+            data-bs-dismiss="toast"
+            aria-label="Close"
+            onClick={handleShow}
+          ></button>
+        </div>
+        <div className="toast-body">{msg.msg}</div>
       </div>
     </div>
   );

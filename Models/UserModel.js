@@ -1,4 +1,4 @@
-import { Mongoose } from "mongoose";
+import mongoose from "mongoose";
 
 const UserSchema = new mongoose.Schema(
   {
@@ -34,5 +34,5 @@ const UserSchema = new mongoose.Schema(
   }
 );
 
-let Dataset = mongoogse.models.user || mongoogse.model("user", UserSchema);
+let Dataset = mongoose.models.user || mongoose.model("user", UserSchema);
 export default Dataset;
