@@ -1,10 +1,13 @@
+import { useState } from "react";
+
 const Toast = ({ msg, handleShow, bgColor }) => {
+  const [show, setShow] = useState()
   return (
     <div
       className={`position-fixed toast align-items-center text-white bg-${bgColor} border-0 show`}
       role="alert"
       aria-live="assertive"
-      data-autohide
+      data-autohide="true"
       style={{ right: 10, top: 100 }}
     >
       <div>

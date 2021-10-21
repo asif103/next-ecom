@@ -1,15 +1,18 @@
 import Head from "next/head";
 import Link from "next/link";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { postData } from "../Utils/fetchData";
 import { DataContext } from "../store/GlobalState";
 import Cookies from "js-cookie";
+import { useRouter } from "next/router";
 
 const Login = () => {
   const initialState = { email: "", password: "" };
   const [userData, setUserData] = useState(initialState);
   const { email, password } = userData;
   const { state, dispatch } = useContext(DataContext);
+  const { auth } = state;
+  const router = useRouter();
   const handleChangeInput = (e) => {
     const { name, value } = e.target;
     setUserData({ ...userData, [name]: value });
@@ -37,6 +40,9 @@ const Login = () => {
     });
     localStorage.setItem("firstLogin", true);
   };
+  useEffect(() => {
+    if (Object.keys(auth).length !== 0) router.push("/");
+  }, [auth]);
   return (
     <div>
       <Head>
@@ -75,7 +81,7 @@ const Login = () => {
               onChange={handleChangeInput}
             />
           </div>
-          <button type="submit" className="btn btn-success">
+          <button type="submit" className="btn btn-success my-2">
             Login
           </button>
           <p>

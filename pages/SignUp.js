@@ -1,8 +1,9 @@
 import Head from "next/head";
 import Link from "next/link";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { postData } from "../Utils/fetchData";
 import { DataContext } from "../store/GlobalState";
+import { useRouter } from "next/router";
 
 import valid from "../Utils/valid";
 const SignUp = () => {
@@ -10,6 +11,8 @@ const SignUp = () => {
   const [userData, setUserData] = useState(initialState);
   const { name, email, password, cpassword } = userData;
   const { state, dispatch } = useContext(DataContext);
+  const { auth } = state;
+  const router = useRouter();
   const handleChangeInput = (e) => {
     const { name, value } = e.target;
     setUserData({ ...userData, [name]: value });
@@ -26,6 +29,9 @@ const SignUp = () => {
       return dispatch({ type: "NOTIFY", payload: { error: res.err } });
     return dispatch({ type: "NOTIFY", payload: { success: res.msg } });
   };
+  useEffect(() => {
+    if (Object.keys(auth).length !== 0) router.push("/");
+  }, [auth]);
   return (
     <div>
       <Head>
@@ -85,7 +91,7 @@ const SignUp = () => {
               value={cpassword}
             />
           </div>
-          <button type="submit" className="btn btn-success">
+          <button type="submit" className="btn btn-success my-2">
             Sign Up
           </button>
           <p>
