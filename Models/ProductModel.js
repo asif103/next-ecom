@@ -24,6 +24,22 @@ const ProductSchema = new mongoose.Schema(
       type: Array,
       required: true,
     },
+    category: {
+      type: String,
+      required: true,
+    },
+    checked: {
+      type: Boolean,
+      default: false,
+    },
+    inStock: {
+      type: Number,
+      default: 0,
+    },
+    sold: {
+      type: Number,
+      default: 0,
+    },
   },
   {
     timestamps: true,
